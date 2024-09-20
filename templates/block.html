@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Block Information</h2>
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% else %}
+<table class="table table-bordered">
+    <tr>
+        <th>Block Hash</th>
+        <td>{{ block_hash }}</td>
+    </tr>
+    <tr>
+        <th>Block Account</th>
+        <td>{{ data.block_account }}</td>
+    </tr>
+    <tr>
+        <th>Amount</th>
+        <td>{{ data.amount | int | humanize_nano }} NANO</td>
+    </tr>
+    <tr>
+        <th>Balance</th>
+        <td>{{ data.balance | int | humanize_nano }} NANO</td>
+    </tr>
+    <tr>
+        <th>Height</th>
+        <td>{{ data.height }}</td>
+    </tr>
+    <tr>
+        <th>Local Timestamp</th>
+        <td>{{ data.local_timestamp | format_timestamp }}</td>
+    </tr>
+    <tr>
+        <th>Confirmed</th>
+        <td>{{ data.confirmed }}</td>
+    </tr>
+    <tr>
+        <th>Subtype</th>
+        <td>{{ data.subtype }}</td>
+    </tr>
+</table>
+<h3>Block Contents</h3>
+<pre>{{ data.contents | tojson(indent=2) }}</pre>
+{% endif %}
+{% endblock %}

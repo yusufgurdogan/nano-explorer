@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Account Information</h2>
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% else %}
+<table class="table table-bordered">
+    <tr>
+        <th>Account</th>
+        <td>{{ account }}</td>
+    </tr>
+    <tr>
+        <th>Balance</th>
+        <td>{{ data.balance | int | humanize_nano }} NANO</td>
+    </tr>
+    <tr>
+        <th>Receivable</th>
+        <td>{{ data.receivable | int | humanize_nano }} NANO</td>
+    </tr>
+    <tr>
+        <th>Confirmed Balance</th>
+        <td>{{ data.confirmed_balance | int | humanize_nano }} NANO</td>
+    </tr>
+    <tr>
+        <th>Representative</th>
+        <td>{{ data.representative }}</td>
+    </tr>
+    <tr>
+        <th>Voting Weight</th>
+        <td>{{ data.weight | int | humanize_nano }} NANO</td>
+    </tr>
+    <tr>
+        <th>Block Count</th>
+        <td>{{ data.block_count }}</td>
+    </tr>
+</table>
+
+<h3>Recent Transactions</h3>
+{% if history %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Account</th>
+            <th>Amount</th>
+            <th>Hash</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tx in history %}
+        <tr>
+            <td>{{ tx.local_timestamp | format_timestamp }}</td>
+            <td>{{ tx.type }}</td>
+            <td>{{ tx.account }}</td>
+            <td>{{ tx.amount | int | humanize_nano }} NANO</td>
+            <td><a href="{{ url_for('block_info_route', block_hash=tx.hash) }}">{{ tx.hash }}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No recent transactions found.</p>
+{% endif %}
+{% endif %}
+{% endblock %}

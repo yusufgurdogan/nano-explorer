@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center">Nano Explorer</h1>
+<p class="text-center">Enter a Nano account or block hash to explore.</p>
+{% if error %}
+<div class="alert alert-danger text-center">{{ error }}</div>
+{% endif %}
+<form method="post" class="d-flex justify-content-center">
+    <input type="text" name="search_query" class="form-control w-50 me-2" placeholder="Nano account or block hash" required>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+{% endblock %}
